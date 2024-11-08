@@ -60,7 +60,7 @@
 		const getUv = gpu.createKernel(function(t,c) {
 			var uv = [this.thread.x,this.thread.y];
 		//normalize cursor cords
-			var cursor = [ c[0]*20,
+			var cursor = [ c[0]*16,
 			               c[1]*4.4 ];
 		//translate zero to center
 			uv[0] -= cursor[0];//this.constants.width /2;
@@ -68,7 +68,7 @@
 		//rotate depending on distance to center
 			const len = Math.pow(Math.pow(uv[0],2)+Math.pow(uv[1],2),0.5);
 			const win_len = Math.pow(Math.pow(this.constants.width,2)+Math.pow(this.constants.height,2),0.5);
-			uv = rotate(uv,len*Math.sin(t)*Math.PI*2/win_len);
+			uv = rotate(uv,len*(Math.sin(t)-Math.sin(t*3)/3)*Math.PI*2/win_len);
 		//return zero to top left corner
 			uv[0] += cursor[0];//this.constants.width /2;
 			uv[1] += cursor[1];//this.constants.height/2;
